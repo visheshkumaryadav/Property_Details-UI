@@ -1,0 +1,67 @@
+<div class="container">
+  <mat-toolbar color="primary">
+    <span>My crud App</span>
+    <span class="example-spacer"></span>
+    <button mat-raised-button color="accent" (click)="edit()">Add employee</button>
+  </mat-toolbar>
+  <div class="main-body">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+    </mat-form-field>
+
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ptitle">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Property title </th>
+          <td mat-cell *matCellDef="let row"> {{row.ptitle}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="pprice">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Property price </th>
+          <td mat-cell *matCellDef="let row"> {{row.pprice}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="plocation">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Property location </th>
+          <td mat-cell *matCellDef="let row"> {{row.plocation}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="pdetails">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Property details </th>
+          <td mat-cell *matCellDef="let row"> {{row.pdetails}} </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button color="primary" (click)="editProperty(row)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteproperty(row.id)">
+              <mat-icon>delete</mat-icon>
+            </button> 
+             </td>
+        </ng-container> 
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    </div>
+
+
+  </div>
+</div>
